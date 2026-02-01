@@ -6,6 +6,8 @@ import com.susanto.ecommerce.order.kafka.OrderCofirmation;
 import com.susanto.ecommerce.order.kafka.OrderProducer;
 import com.susanto.ecommerce.orderline.OrderLineRequest;
 import com.susanto.ecommerce.orderline.OrderLineService;
+import com.susanto.ecommerce.payment.PaymentClient;
+import com.susanto.ecommerce.payment.PaymentRequest;
 import com.susanto.ecommerce.product.ProductClient;
 import com.susanto.ecommerce.product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +26,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(@Valid OrderRequest request) {
         // check customer exits (Feign client to call customer-ms)
@@ -48,7 +51,15 @@ public class OrderService {
              );
         }
 
-        //TODO: Start payment (payment-ms)
+        //Start payment (payment-ms)
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         //send order confirmation by Kafka (notification-ms)
         orderProducer.sendOrderConfirmation(
