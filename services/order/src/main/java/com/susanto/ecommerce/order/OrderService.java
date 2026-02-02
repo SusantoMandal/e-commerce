@@ -2,8 +2,8 @@ package com.susanto.ecommerce.order;
 
 import com.susanto.ecommerce.customer.CustomerClient;
 import com.susanto.ecommerce.exception.BusinessException;
-import com.susanto.ecommerce.order.kafka.OrderCofirmation;
-import com.susanto.ecommerce.order.kafka.OrderProducer;
+import com.susanto.ecommerce.kafka.OrderConfirmation;
+import com.susanto.ecommerce.kafka.OrderProducer;
 import com.susanto.ecommerce.orderline.OrderLineRequest;
 import com.susanto.ecommerce.orderline.OrderLineService;
 import com.susanto.ecommerce.payment.PaymentClient;
@@ -63,7 +63,7 @@ public class OrderService {
 
         //send order confirmation by Kafka (notification-ms)
         orderProducer.sendOrderConfirmation(
-                new OrderCofirmation(
+                new OrderConfirmation(
                         request.reference(),
                         request.amount(),
                         request.paymentMethod(),
