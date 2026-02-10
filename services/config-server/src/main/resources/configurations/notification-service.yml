@@ -1,11 +1,12 @@
 spring:
-  mongodb:
-    username: susanto
-    password: susanto
-    host: localhost
-    port: 27017
-    database: notification
-    authentication-database: admin
+  data:
+    mongodb:
+      username: susanto
+      password: susanto
+      host: localhost
+      port: 27017
+      database: notification
+      authentication-database: admin
   kafka:
     consumer:
       bootstrap-servers: localhost:9092

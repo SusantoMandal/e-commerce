@@ -42,7 +42,7 @@ public class EmailService {
                         MimeMessageHelper.MULTIPART_MODE_RELATED,
                         StandardCharsets.UTF_8.name()
                 );
-        messageHelper.setFrom("contact@susantomandal27@gmail.com");
+        messageHelper.setFrom("contact@aliboucoding.com");
 
         final String templateName = PAYMENT_CONFIRMATION.getTemplate();
 
@@ -78,7 +78,7 @@ public class EmailService {
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,  StandardCharsets.UTF_8.name());
-        messageHelper.setFrom("contact@susantomandal27@gmail.com");
+        messageHelper.setFrom("contact@aliboucoding.com");
 
         final String templateName = ORDER_CONFIRMATION.getTemplate();
 
