@@ -4,7 +4,6 @@ import com.susanto.ecommerce.exception.CustomerNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class CustomerService {
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
 
-    public @Nullable String createCustomer(@Valid CustomerRequest request) {
+    public String createCustomer(@Valid CustomerRequest request) {
         var customer = repository.save(mapper.toCustomer(request));
         return customer.getId();
     }
